@@ -1,5 +1,8 @@
-# Object file
-*.o
+# Editors
+.vscode/
 
-# Ada Library Information
-*.ali
+# Env
+env/
+
+# Config
+config.py

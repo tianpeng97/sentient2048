@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2048 Game</title>
+
+    <script
+      src="https://kit.fontawesome.com/b4d66828b4.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <!-- React -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/react.production.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/react-dom.production.min.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/babel.min.js') }}"
+      charset="utf-8"
+    ></script>
+
+    <!-- jquery -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"
+    ></script>
+
+    <!-- Boostrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
+    <!-- Load React Components -->
+    <script
+      type="text/babel"
+      src="{{ url_for('static', filename='js/App.js') }}"
+    ></script>
+    <script
+      type="text/babel"
+      src="{{ url_for('static', filename='js/Cell.js') }}"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/active_users.js') }}"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="border-bottom">
+        <nav class="navbar navbar-expand-lg justify-content-between">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="{{ url_for('index') }}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              {% if current_user.is_anonymous %}
+              <a class="nav-link text-dark" href="{{ url_for('login') }}"
+                >Login</a
+              >
+              {% else %}
+              <a class="nav-link text-dark" href="{{ url_for('logout') }}"
+                >Logout</a
+              >
+              {% endif %}
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="{{ url_for('register') }}"
+                >Register</a
+              >
+            </li>
+          </ul>
+          <span class="nav-item">
+            {% if current_user.is_anonymous %} Guest {% else %} {{
+            current_user.username }} {% endif %}
+          </span>
+        </nav>
+      </div>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %} {% block content %} {% endblock %}
+    </div>
+    <footer class="footer">
+      <p class="text-center">Author: Tian Peng</p>
+    </footer>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/leaderboard.js') }}"
+    ></script>
+  </body>
+</html>
