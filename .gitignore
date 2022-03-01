@@ -5,6 +5,3 @@ __pycache__/
 
 # Env
 venv/
-
-# Config
-config.py
