@@ -1,8 +1,10 @@
 # Editors
 .vscode/
 
+__pycache__/
+
 # Env
-env/
+venv/
 
 # Config
 config.py
