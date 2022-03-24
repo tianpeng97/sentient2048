@@ -7,7 +7,6 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30))
     password = db.Column(db.String(30))
-    role = db.Column(db.String(6))
     score = db.Column(db.Integer, default=0)
     member_since = db.Column(db.DateTime, default=datetime.now())
     is_active = db.Column(db.Integer, default=1)
@@ -17,17 +16,15 @@ class User(UserMixin, db.Model):
         return {
             'id': self.id,
             'username': self.username,
-            'role': self.role,
             'score': self.score,
             'member_since': self.member_since,
             'is_active': self.is_active,
             'moves': self.moves
         }
 
-    def __init__(self, username, password, role):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.role = role
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

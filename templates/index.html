@@ -1,10 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="py-3">
-  {% if current_user.is_anonymous %}
-  <h3 class="text-center">Please log in or register to play.</h3>
-  {% else %}
   <div id="root"></div>
-  {% if user.role == 'admin' %}
+  {% if current_user.is_authenticated %}
   <div class="py-3 text-center">
     <p>
       <a
@@ -19,20 +16,20 @@
       </a>
     </p>
     <div class="collapse" id="collapseLeaderboard">
-        <p>Active users: <span id="active_users"></span></p>
-        <p>Members: <span id="members"></span></p>
-        <table
-          id="leaderboard"
-          class="leaderboard table table-bordered table-sm"
-          data-search="true"
-          data-show-refresh="true"
-          data-detail-view="true"
-          data-detail-formatter="detailFormatter"
-          data-url="{{ url_for('leaderboard') }}"
-          data-response-handler="responseHandler"
-        ></table>
+      <p>Active users: <span id="active_users"></span></p>
+      <p>Members: <span id="members"></span></p>
+      <table
+        id="leaderboard"
+        class="leaderboard table table-bordered table-sm"
+        data-search="true"
+        data-show-refresh="true"
+        data-detail-view="true"
+        data-detail-formatter="detailFormatter"
+        data-url="{{ url_for('leaderboard') }}"
+        data-response-handler="responseHandler"
+      ></table>
     </div>
   </div>
-  {% endif %} {% endif %}
+  {% endif %}
 </div>
 {% endblock %}

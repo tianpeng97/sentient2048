@@ -58,7 +58,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(form.username.data, form.password.data, form.role.data)
+        user = User(form.username.data, form.password.data)
         db.session.add(user)
         db.session.commit()
         # register and automatically logs in

@@ -2,13 +2,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    let newBoard = Array(4)
+      .fill()
+      .map(() => Array(4).fill(null));
     this.state = {
-      board: null,
-      size: 0,
+      board: newBoard,
+      size: 4,
       moves: 0,
       score: 0,
       gameOver: false,
-      message: "",
+      message: '',
     };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -19,9 +22,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener("keydown", (event) => {
+    document.body.addEventListener('keydown', (event) => {
       if (
-        ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(
+        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(
           event.code
         ) > -1
       ) {
@@ -29,35 +32,25 @@ class App extends React.Component {
       }
     });
 
-    document.body.addEventListener("keydown", this.handleKeyPress);
-    this.initGame();
+    document.body.addEventListener('keydown', this.handleKeyPress);
+    this.addRandom2Cells();
+    this.tableConstruction();
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener("keydown", this.handleKeyPress);
-  }
-
-  handleNewGame() {
-    if (document.getElementById("size").value >= 3) {
-      this.setState(
-        { size: parseInt(document.getElementById("size").value) },
-        this.initGame
-      );
-    } else {
-      alert("Please enter a valid board length.");
-    }
+    document.body.removeEventListener('keydown', this.handleKeyPress);
   }
 
   // Direction verical sont inverted car upper-left corner est coord(0, 0)
   handleKeyPress(event) {
     if (!this.state.gameOver) {
-      if (event.key == "ArrowDown") {
+      if (event.key == 'ArrowDown') {
         this.sweep({ x: 0, y: 1 });
-      } else if (event.key == "ArrowUp") {
+      } else if (event.key == 'ArrowUp') {
         this.sweep({ x: 0, y: -1 });
-      } else if (event.key == "ArrowRight") {
+      } else if (event.key == 'ArrowRight') {
         this.sweep({ x: 1, y: 0 });
-      } else if (event.key == "ArrowLeft") {
+      } else if (event.key == 'ArrowLeft') {
         this.sweep({ x: -1, y: 0 });
       }
     }
@@ -94,7 +87,7 @@ class App extends React.Component {
         </div>
       );
 
-      ReactDOM.render(tableConstruction, document.getElementById("game-body"));
+      ReactDOM.render(tableConstruction, document.getElementById('game-body'));
     }
   }
 
@@ -119,37 +112,44 @@ class App extends React.Component {
 
   // New Game
   initGame() {
-    let newBoard = Array(this.state.size)
+    let newBoard = Array(4)
       .fill()
-      .map(() => Array(this.state.size).fill(null));
-
+      .map(() => Array(4).fill(null));
     this.setState(
-      { board: newBoard, score: 0, gameOver: false, message: "" },
+      {
+        board: newBoard,
+        score: 0,
+        gameOver: false,
+        message: '',
+      },
       () => {
-        this.fetchMoves(JSON.stringify({ moves: 0 }));
-        this.addRandomCell();
-        this.addRandomCell();
+        this.addRandom2Cells();
       }
     );
   }
 
-  fetch(score) {
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ score: score })
-    };
-    fetch('/~pengtian/cgi-bin/tp3.cgi/score', requestOptions);
+  addRandom2Cells() {
+    this.addRandomCell();
+    this.addRandomCell();
   }
 
-  fetchMoves(moves) {
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ moves: moves })
-    };
-    fetch('/~pengtian/cgi-bin/tp3.cgi/moves', requestOptions);
-  }
+  // fetch(score) {
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ score: score }),
+  //   };
+  //   fetch('/~pengtian/cgi-bin/tp3.cgi/score', requestOptions);
+  // }
+
+  // fetchMoves(moves) {
+  //   const requestOptions = {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ moves: moves }),
+  //   };
+  //   fetch('/~pengtian/cgi-bin/tp3.cgi/moves', requestOptions);
+  // }
 
   // Les positions a "lire" selon la direction du sweep
   initSweep(vector) {
@@ -221,12 +221,12 @@ class App extends React.Component {
             ));
 
             let score = this.state.score + cellValue * 2;
-
-            this.setState({ score: score }, () => {
-              this.fetch(score);
-            });
+            this.setState({ score: score });
+            // this.setState({ score: score }, () => {
+            //   this.fetch(score);
+            // });
             if (cellValue * 2 === 2048) {
-              this.setState({ gameOver: true, message: "GAME WON!" });
+              this.setState({ gameOver: true, message: 'GAME WON!' });
             }
           } else {
             ({ newBoard, merges } = this.move(
@@ -252,9 +252,9 @@ class App extends React.Component {
 
     if (moved) {
       let moves = this.state.moves + 1;
-      this.setState({ moves: moves }, () => {
-        this.fetchMoves(moves);
-      });
+      // this.setState({ moves: moves }, () => {
+      //   this.fetchMoves(moves);
+      // });
 
       if (!this.state.gameOver) {
         this.addRandomCell();
@@ -262,7 +262,7 @@ class App extends React.Component {
 
       // have to check after adding cell
       if (this.isGameOver()) {
-        this.setState({ gameOver: true, message: "GAME LOST." });
+        this.setState({ gameOver: true, message: 'GAME LOST.' });
       }
     }
   }
@@ -377,17 +377,13 @@ class App extends React.Component {
             <div className="col-7">
               <div className="settings">
                 <div className="form-group" id="board-size">
-                  <label>Enter board length. Minimum 3.</label>
                   <div className="row">
-                    <div className="col">
-                      <input className="form-control" id="size" type="text" />
-                    </div>
                     <div className="col">
                       <button
                         id="game-new"
                         className="btn btn-outline-secondary"
                         onClick={() => {
-                          this.handleNewGame();
+                          this.initGame();
                         }}
                       >
                         New Game
@@ -406,7 +402,6 @@ class App extends React.Component {
   }
 }
 
-if (document.getElementById("root")) {
-  ReactDOM.render(<App />, document.getElementById("root"));
-} 
-
+if (document.getElementById('root')) {
+  ReactDOM.render(<App />, document.getElementById('root'));
+}

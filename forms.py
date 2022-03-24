@@ -3,8 +3,6 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Selec
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from models import User
 
-ROLES = [('player', 'Player'), ('admin', 'Admin')]
-
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -16,7 +14,6 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     re_password = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField(u'Role', choices=ROLES)
     submit = SubmitField('Register')
 
     def validate_username(self, username):
