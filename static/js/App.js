@@ -133,14 +133,14 @@ class App extends React.Component {
     this.addRandomCell();
   }
 
-  // fetch(score) {
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ score: score }),
-  //   };
-  //   fetch('/~pengtian/cgi-bin/tp3.cgi/score', requestOptions);
-  // }
+  fetch(score) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ score: score }),
+    };
+    fetch('https://sentient2048.herokuapp.com/score', requestOptions);
+  }
 
   // fetchMoves(moves) {
   //   const requestOptions = {
@@ -221,10 +221,9 @@ class App extends React.Component {
             ));
 
             let score = this.state.score + cellValue * 2;
-            this.setState({ score: score });
-            // this.setState({ score: score }, () => {
-            //   this.fetch(score);
-            // });
+            this.setState({ score: score }, () => {
+              this.fetch(score);
+            });
             if (cellValue * 2 === 2048) {
               this.setState({ gameOver: true, message: 'GAME WON!' });
             }
