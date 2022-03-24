@@ -142,14 +142,14 @@ class App extends React.Component {
     fetch('https://sentient2048.herokuapp.com/score', requestOptions);
   }
 
-  // fetchMoves(moves) {
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ moves: moves }),
-  //   };
-  //   fetch('/~pengtian/cgi-bin/tp3.cgi/moves', requestOptions);
-  // }
+  fetchMoves(moves) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ moves: moves }),
+    };
+    fetch('https://sentient2048.herokuapp.com/moves', requestOptions);
+  }
 
   // Les positions a "lire" selon la direction du sweep
   initSweep(vector) {
@@ -251,9 +251,9 @@ class App extends React.Component {
 
     if (moved) {
       let moves = this.state.moves + 1;
-      // this.setState({ moves: moves }, () => {
-      //   this.fetchMoves(moves);
-      // });
+      this.setState({ moves: moves }, () => {
+        this.fetchMoves(moves);
+      });
 
       if (!this.state.gameOver) {
         this.addRandomCell();
