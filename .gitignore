@@ -8,6 +8,5 @@ __pycache__/
 fly.toml
 node_modules/
 .dockerignore
-sentient2048-frontend/
 package-lock.json
 script.ts
