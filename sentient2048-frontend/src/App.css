@@ -89,12 +89,16 @@ body {
   background-color: #8f7a66;
 }
 
+.button-style:hover {
+  background-color: #5b4a3a;
+}
+
 #game {
   padding: 0px;
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: 25% 25% 25% 25%;
-  border-top: 6px solid #bbada0;
-  border-left: 6px solid #bbada0;
+  border-top: 6px solid #8f7a66;
+  border-left: 6px solid #8f7a66;
 }
 
 .cell {
@@ -104,8 +108,8 @@ body {
   align-items: center;
   font-weight: bold;
   font-size: 2em;
-  border-bottom: 6px solid #bbada0;
-  border-right: 6px solid #bbada0;
+  border-bottom: 6px solid #8f7a66;
+  border-right: 6px solid #8f7a66;
 }
 
 .game-info {
@@ -140,14 +144,14 @@ body {
 }
 
 .title {
-  background-color: #e9ecef;
+  background-color: #bbada0;
   padding: 20px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .settings {
-  background-color: #e9ecef;
+  background-color: #bbada0;
   padding: 20px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -160,9 +164,6 @@ body {
 }
 
 .game-over-true {
-  line-height: 600px;
-  width: 600px;
-  height: 600px;
   position: absolute;
   z-index: 10;
   text-align: center;
@@ -178,17 +179,19 @@ body {
   background: #8f7a66;
   color: #f9f6f2;
   font-weight: bold;
+  border-radius: 5px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 #game-new:hover {
-  background-color: #50c8ff;
-  color: #303030;
+  background-color: #7e6955;
   transition: background-color 0.5s, color 0.5s;
 }
 
 /* Cells */
 .value-null {
-  background-color: #eee4da;
+  background-color: #bbada0;
 }
 
 .value-2 {

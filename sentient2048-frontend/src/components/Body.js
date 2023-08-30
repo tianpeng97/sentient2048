@@ -10,7 +10,13 @@ const Body = ({ isStarted, gameOver, message, board, size }) => {
       >
         <div className="md:px-4 flex flex-col md:rounded-lg">
           <div className="flex justify-center items-center sm:px-4 px-4 sm:pb-4">
-            <div className={`game-over-${gameOver}`}>{message}</div>
+            {gameOver && (
+              <div
+                className={`game-over-${gameOver} prevent-select grid aspect-[1] w-full h-full p-2 sm:p-4 md:p-0 mb-2 sm:mb-0 sm:w-[60vh] sm:h-[60vh] md:w-[50vh] md:h-[50vh] lg:w-[65vh] lg:h-[65vh]`}
+              >
+                {message}
+              </div>
+            )}
             <div
               id="game"
               className="prevent-select grid aspect-[1] w-full h-full p-2 sm:p-4 md:p-0 mb-2 sm:mb-0 sm:w-[60vh] sm:h-[60vh] md:w-[50vh] md:h-[50vh] lg:w-[65vh] lg:h-[65vh]"

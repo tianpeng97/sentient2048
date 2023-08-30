@@ -24,8 +24,8 @@ const Leaderboard = () => {
   } else {
     return (
       <table className="leaderboard w-full text-sm text-left text-gray-500">
-        <caption className="text-xl uppercase">Leaderboard</caption>
-        <thead className="text-xs text-gray-400 uppercase bg-gray-700">
+        <caption className="text-xl uppercase font-bold">Leaderboard</caption>
+        <thead className="text-xs text-gray-300 uppercase bg-[#5b4a3a]">
           <tr className="leaderboard-row">
             <th
               scope="col"
@@ -57,17 +57,17 @@ const Leaderboard = () => {
           {entries.map((row, index) => (
             <tr
               key={row.username}
-              className="leaderboard-row border-b bg-gray-800 border-gray-700"
+              className="leaderboard-row border-b bg-[#8f7a66] border-gray-700 text-gray-300"
             >
               <th
                 scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap text-white"
+                className="px-6 py-4 font-bold whitespace-nowrap text-white"
               >
                 {index + 1}
               </th>
               <th
                 scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap text-white"
+                className="px-6 py-4 font-bold whitespace-nowrap text-white font-bold"
               >
                 {row.username}
               </th>

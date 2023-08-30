@@ -25,11 +25,11 @@ const Home = () => {
         />
         <Article
           alt={false}
-          title="Try it"
+          title="Try the game out"
           content={
             <nav className="h-full lg:flex items-center space-x-4 pt-6 px-6">
               <Link to="/game">
-                <Button text="Try it" />
+                <Button text="Game" />
               </Link>
             </nav>
           }
