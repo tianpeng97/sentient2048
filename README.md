@@ -1,3 +1,12 @@
-# 2048-game
+# Sentient 2048
 
-## todo airbnb lint
+Sentient 2048 is a derivative of 2048.
+
+### Technology Stack
+
+- React.js
+- Express.js
+- Javascript
+- Tailwind CSS
+- Fly.io
+- PostgresQL
