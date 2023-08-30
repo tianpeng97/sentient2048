@@ -1,0 +1,5 @@
+build
+node_modules
+old_backend
+old_frontend
+sentient2048-frontend
