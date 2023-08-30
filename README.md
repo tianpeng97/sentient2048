@@ -9,4 +9,5 @@ Sentient 2048 is a derivative of 2048.
 - Javascript
 - Tailwind CSS
 - Fly.io
+- Prisma
 - PostgresQL
