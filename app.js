@@ -11,7 +11,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
 // routers
-const ioRouter = require('./controllers/io')(io)
+require('./controllers/io')(io)
 const accountsRouter = require('./controllers/accounts')
 const loginRouter = require('./controllers/login')
 

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -12,5 +13,12 @@ model accounts {
   username       String    @unique
   highscore      Int       @default(0) @db.SmallInt
   password       String
+  date_completed DateTime? @db.Timestamp(6)
+}
+
+view top_10 {
+  id             Int       @id
+  username       String    @unique
+  highscore      Int       @db.SmallInt
   date_completed DateTime? @db.Timestamp(6)
 }

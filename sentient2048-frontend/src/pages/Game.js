@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Board from '../components/Board'
 import Header from '../components/Header'
+import { socket } from '../socket'
 import { UserContext } from '../components/UserContext'
 import accountsService from '../services/accounts'
 import Leaderboard from '../components/Leaderboard'
@@ -10,17 +11,26 @@ const Game = () => {
   const [highestScore, setHighestScore] = useState(0)
   const { user } = useContext(UserContext)
 
-  const handleScore = () => {
+  const handleScore = async () => {
     if (user) {
       if (score > highestScore) {
         const date = new Date()
-        accountsService.update(user.id, {
+        await accountsService.update(user.id, {
           highscore: score,
           date_completed: date,
         })
+        socket.emit('update', user.id)
       }
     }
   }
+
+  useEffect(() => {
+    socket.connect()
+
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     if (user) {
@@ -40,7 +50,7 @@ const Game = () => {
           score={score}
           setScore={setScore}
         />
-        <Leaderboard />
+        <Leaderboard socket={socket} />
       </div>
     </div>
   )

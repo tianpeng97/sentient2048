@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const accountsRouter = require('express').Router()
 const accounts = require('../models/accounts')
+const prisma = require('../models/prisma')
 const config = require('../utils/config')
 const jwt = require('jsonwebtoken')
 
@@ -19,16 +20,17 @@ const exclude = (user, keys) => {
 }
 
 accountsRouter.get('/', async (req, res) => {
-  const accountsFind = await accounts.findMany({
-    select: {
-      id: true,
-      username: true,
-      highscore: true,
-      date_completed: true,
-    },
-    take: 10,
-    orderBy: [{ highscore: 'desc' }, { date_completed: 'asc' }],
-  })
+  const accountsFind = await prisma.top_10.findMany()
+  // const accountsFind = await accounts.findMany({
+  //   select: {
+  //     id: true,
+  //     username: true,
+  //     highscore: true,
+  //     date_completed: true,
+  //   },
+  //   take: 10,
+  //   orderBy: [{ highscore: 'desc' }, { date_completed: 'asc' }],
+  // })
 
   res.json(accountsFind)
 })

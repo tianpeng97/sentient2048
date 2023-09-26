@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import accountsService from '../services/accounts'
-import { socket } from '../socket'
 
-const Leaderboard = () => {
+const Leaderboard = ({ socket }) => {
   const [entries, setEntries] = useState([])
 
   const formatDate = (date) => {
@@ -10,13 +9,24 @@ const Leaderboard = () => {
     return result.toDateString()
   }
 
+  // only update if top 10 changes
   useEffect(() => {
-    socket.connect()
+    window.addEventListener('beforeunload', handleWindowClose)
+    fetchAccounts()
+
+    socket.on('update', () => {
+      fetchAccounts()
+    })
 
     return () => {
-      socket.disconnect()
+      window.removeEventListener('beforeunload', handleWindowClose)
     }
   }, [])
+
+  const handleWindowClose = (event) => {
+    event.preventDefault()
+    socket.disconnect()
+  }
 
   // useEffect(() => {
   //   fetchAccounts()
