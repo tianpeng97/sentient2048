@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import accountsService from '../services/accounts'
+import { socket } from '../socket'
 
 const Leaderboard = () => {
   const [entries, setEntries] = useState([])
@@ -10,10 +11,28 @@ const Leaderboard = () => {
   }
 
   useEffect(() => {
-    accountsService.getAll().then((res) => {
+    socket.connect()
+
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   fetchAccounts()
+  //   const myInterval = setInterval(fetchAccounts, 3000)
+
+  //   return () => {
+  //     // should clear the interval when the component unmounts
+  //     clearInterval(myInterval)
+  //   }
+  // }, [])
+
+  const fetchAccounts = async () => {
+    await accountsService.getAll().then((res) => {
       setEntries(res)
     })
-  }, [])
+  }
 
   // 2004-10-19 10:23:54
   // select username, highscore from accounts order by highscore desc, date_completed limit 10;

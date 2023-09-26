@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Game from './pages/Game'
 import { UserContext } from './components/UserContext'
+import { socket } from './socket'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import accountsService from './services/accounts'
@@ -17,6 +18,19 @@ const App = () => {
       const user = JSON.parse(logged)
       setUser(user)
       accountsService.setToken(user.token)
+    }
+
+    // socket
+    const onConnect = () => {}
+
+    const onDisconnect = () => {}
+
+    socket.on('connect', onConnect)
+    socket.on('disconnect', onDisconnect)
+
+    return () => {
+      socket.off('connect', onConnect)
+      socket.off('disconnect', onDisconnect)
     }
   }, [])
 

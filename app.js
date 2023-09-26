@@ -5,12 +5,15 @@ require('express-async-errors') // BEFORE ROUTES
 const middleware = require('./utils/middleware')
 const logger = require('morgan')
 
-// routers
-const accountsRouter = require('./controllers/accounts')
-const loginRouter = require('./controllers/login')
-
 // app
 const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
+
+// routers
+const ioRouter = require('./controllers/io')(io)
+const accountsRouter = require('./controllers/accounts')
+const loginRouter = require('./controllers/login')
 
 // use
 app.use(logger('dev'))
@@ -35,4 +38,4 @@ app.use('/signup', (req, res) => {
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
-module.exports = app
+module.exports = server
